@@ -1,0 +1,48 @@
+from turtledemo.nim import computerzug
+
+rock = '''
+    _______
+---'   ____)
+      (_____)
+      (_____)
+      (____)
+---.__(___)
+'''
+
+paper = '''
+    _______
+---'   ____)____
+          ______)
+          _______)
+         _______)
+---.__________)
+'''
+
+scissors = '''
+    _______
+---'   ____)____
+          ______)
+       __________)
+      (____)
+---.__(___)
+'''
+import random
+game_images = [rock, paper, scissors]
+
+user_choice = int(input("What do you choose player 1? Type 0 for Rock, 1 for Paper or 2 for Scissors.\n"))
+# Note: it's worth checking if the user has made a valid choice before the next line of code.
+# If the user typed somthing other than 0, 1 or 2 the next line will give you an error.
+# You could for example write:
+user_choice_two = int(input("What do you choose player 2? Type 0 for Rock, 1 for Paper or 2 for Scissors.\n"))
+
+
+
+# Assuming 0: Rock, 1: Paper, 2: Scissors
+if user_choice == user_choice_two:
+    print("It's a draw!")
+elif (user_choice == 0 and user_choice_two == 1) or \
+     (user_choice == 1 and user_choice_two == 2) or \
+     (user_choice == 2 and user_choice_two == 0):
+    print("Player 2 wins!")
+else:
+    print("Player 1 wins!")
