@@ -1,0 +1,59 @@
+tickets = [
+    {"id": 1, "user": "john.admin", "issue": "Cannot login", "status": "open"},
+    {"id": 2, "user": "sarah.user", "issue": "Password reset", "status": "open"},
+    {"id": 3, "user": "mike.admin", "issue": "VPN not connecting", "status": "closed"}
+]
+
+def view_tickets():
+    print("\n=== All Tickets ===")
+    for ticket in tickets:
+        print(f"ID: {ticket['id']} | User: {ticket['user']} | Issue: {ticket['issue']} | Status: {ticket['status']}")
+
+def create_ticket():
+    username = input("Enter your name: ")
+    issue = input("What is your issue? ")
+    new_id = len(tickets) + 1
+    new_ticket = {
+        "id": new_id,
+        "user": username,
+        "issue": issue,
+        "status": "open"
+    }
+    tickets.append(new_ticket)
+    print(f"\nTicket #{new_id} created successfully ✅")
+
+def close_ticket():
+    ticket_id = int(input("Enter ticket ID to close: "))
+    for ticket in tickets:
+        if ticket["id"] == ticket_id:
+            ticket["status"] = "closed"
+            print(f"Ticket #{ticket_id} closed ✅")
+            return
+    print("Ticket not found")
+
+def view_open_tickets():
+    print("\n=== Open Tickets ===")
+    for ticket in tickets:
+        if ticket["status"] == "open":
+            print(f"ID: {ticket['id']} | User: {ticket['user']} | Issue: {ticket['issue']}")
+
+while True:
+    print("\n=== IT Helpdesk ===")
+    print("1. View all tickets")
+    print("2. Create ticket")
+    print("3. Close ticket")
+    print("4. View open tickets")
+    print("5. Quit")
+    choice = input("\nChoose an option: ")
+    if choice == "1":
+        view_tickets()
+    elif choice == "2":
+        create_ticket()
+    elif choice == "3":
+        close_ticket()
+    elif choice == "4":
+        view_open_tickets()
+    elif choice == "5":
+        break
+    else:
+        print("Invalid option, choose 1-5")
