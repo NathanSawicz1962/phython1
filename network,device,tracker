@@ -1,0 +1,76 @@
+devices = [
+    {"id": 1, "name": "DESKTOP-01", "ip": "192.168.1.10", "type": "workstation", "status": "online"},
+    {"id": 2, "name": "SERVER-01", "ip": "192.168.1.20", "type": "server", "status": "online"},
+    {"id": 3, "name": "LAPTOP-02", "ip": "192.168.1.30", "type": "laptop", "status": "offline"},
+    {"id": 4, "name": "ROUTER-01", "ip": "192.168.1.1", "type": "router", "status": "online"},
+    {"id": 5, "name": "LAPTOP-03", "ip": "192.168.1.40", "type": "laptop", "status": "offline"}
+]
+
+def view_all_devices():
+    print("\n=== All Devices ===")
+    for device in devices:
+        print(f"ID: {device['id']} | Name: {device['name']} | IP: {device['ip']} | Type: {device['type']} | Status: {device['status']}")
+
+def search_byname():
+    print("\n=== Search by Name ===")
+    name_search = input("Enter device name: ")
+    for device in devices:
+        if device["name"] == name_search:
+            print(f"{device['name']} | {device['ip']} | {device['type']} | {device['status']}")
+            return
+    print("Device not found")
+
+def add_device():
+    print("\n=== Add Device ===")
+    name = input("Enter device name: ")
+    ip = input("Enter IP address: ")
+    device_type = input("Enter device type: ")
+    new_id = len(devices) + 1
+    devices.append({
+        "id": new_id,
+        "name": name,
+        "ip": ip,
+        "type": device_type,
+        "status": "online"
+    })
+    print(f"\n{name} added successfully ✅")
+
+def mark_offline():
+    print("\n=== Mark Offline ===")
+    device_offline = input("Enter device name: ")
+    for device in devices:
+        if device["name"] == device_offline:
+            device["status"] = "offline"
+            print(f"{device['name']} marked as offline ⚠️")
+            return
+    print("Device not found")
+
+def view_offline():
+    print("\n=== Offline Devices ===")
+    for device in devices:
+        if device["status"] == "offline":
+            print(f"{device['name']} | {device['ip']} | {device['type']}")
+
+while True:
+    print("\n=== Network Device Tracker ===")
+    print("1. View all devices")
+    print("2. Search by name")
+    print("3. Add device")
+    print("4. Mark offline")
+    print("5. View offline devices")
+    print("6. Quit")
+    choice = input("\nChoose an option: ")
+    if choice == "1":
+        view_all_devices()
+    elif choice == "2":
+        search_byname()
+    elif choice == "3":
+        add_device()
+    elif choice == "4":
+        mark_offline()
+    elif choice == "5":
+        view_offline()
+    elif choice == "6":
+        break
+    else:
+        print("Invalid option, choose 1-6")
