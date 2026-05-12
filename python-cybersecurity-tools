@@ -1,0 +1,74 @@
+logs = [
+    {"user": "john.admin", "ip": "192.168.1.10", "status": "success", "time": "08:02"},
+    {"user": "john.admin", "ip": "192.168.1.10", "status": "success", "time": "08:45"},
+    {"user": "sarah.user", "ip": "192.168.1.20", "status": "failed", "time": "09:01"},
+    {"user": "sarah.user", "ip": "192.168.1.20", "status": "failed", "time": "09:02"},
+    {"user": "sarah.user", "ip": "192.168.1.20", "status": "failed", "time": "09:03"},
+    {"user": "mike.admin", "ip": "85.214.132.117", "status": "success", "time": "02:14"},
+    {"user": "guest", "ip": "192.168.1.99", "status": "failed", "time": "23:45"},
+    {"user": "guest", "ip": "192.168.1.99", "status": "failed", "time": "23:46"},
+    {"user": "lisa.user", "ip": "192.168.1.30", "status": "success", "time": "09:15"},
+]
+
+def view_all_logs():
+    print("\n=== All Logs ===")
+    for log in logs:
+        print(f"{log['user']} | {log['ip']} | {log['status']} | {log['time']}")
+
+def view_failed_logs():
+    print("\n=== Brute Force Detection ===")
+    users_checked = []
+    for log in logs:
+        if log["user"] not in users_checked:
+            users_checked.append(log["user"])
+    for user in users_checked:
+        count = 0
+        for log in logs:
+            if log["user"] == user and log["status"] == "failed":
+                count += 1
+        if count >= 3:
+            print(f"⚠️  BRUTE FORCE: {user} - {count} failed attempts")
+
+def threat_detect():
+    print("\n=== Threat Detection Report ===")
+    users_checked = []
+    for log in logs:
+        if log["user"] not in users_checked:
+            users_checked.append(log["user"])
+    for user in users_checked:
+        count = 0
+        for log in logs:
+            if log["user"] == user and log["status"] == "failed":
+                count += 1
+        if count >= 3:
+            print(f"⚠️  BRUTE FORCE: {user} - {count} failed attempts")
+    for log in logs:
+        if log["time"] >= "00:00" and log["time"] <= "06:00":
+            print(f"⚠️  SUSPICIOUS TIME: {log['user']} logged in at {log['time']}")
+
+def search_by_user():
+    name = input("Enter username: ")
+    for log in logs:
+        if log["user"] == name:
+            print(f"{log['user']} | {log['ip']} | {log['status']} | {log['time']}")
+
+while True:
+    print("\n=== Azure Security Log Analyzer ===")
+    print("1. View all logs")
+    print("2. View failed logins")
+    print("3. Run threat detection")
+    print("4. Search by user")
+    print("5. Quit")
+    choice = input("\nChoose an option: ")
+    if choice == "1":
+        view_all_logs()
+    elif choice == "2":
+        view_failed_logs()
+    elif choice == "3":
+        threat_detect()
+    elif choice == "4":
+        search_by_user()
+    elif choice == "5":
+        break
+    else:
+        print("Invalid option, choose 1-5")
