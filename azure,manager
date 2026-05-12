@@ -1,0 +1,63 @@
+users = [
+    {"username": "john.admin", "role": "admin", "active": True},
+    {"username": "sarah.user", "role": "user", "active": True},
+    {"username": "mike.admin", "role": "admin", "active": False},
+    {"username": "guest", "role": "guest", "active": True},
+    {"username": "lisa.user", "role": "user", "active": False}
+]
+
+def view_users():
+    print("\n=== Azure Users ===")
+    for user in users:
+        status = "ACTIVE" if user["active"] else "DISABLED"
+        print(f"Username: {user['username']} | Role: {user['role']} | Status: {status}")
+
+def search_users():
+    user_search = input("Enter username: ")
+    for user in users:
+        if user["username"] == user_search:
+            print(f"\nUsername: {user['username']}")
+            print(f"Role: {user['role']}")
+            print(f"Active: {user['active']}")
+            return
+    print("User not found")
+
+def disable_user():
+    user_disable = input("Enter username to disable: ")
+    for user in users:
+        if user["username"] == user_disable:
+            user["active"] = False
+            print(f"\n{user_disable} has been disabled ⚠️")
+            return
+    print("User not found")
+
+def run_audit():
+    print("\n=== Security Audit ===")
+    flagged = 0
+    for user in users:
+        if not user["active"]:
+            print(f"{user['username']} | {user['role']} | DISABLED ⚠️")
+            flagged += 1
+    print(f"\n{flagged} disabled accounts found.")
+
+while True:
+    print("\n=== Azure User Manager ===")
+    print("1. View all users")
+    print("2. Search user")
+    print("3. Disable user")
+    print("4. Run audit")
+    print("5. Quit")
+    choice = input("\nChoose an option: ")
+    if choice == "1":
+        view_users()
+    elif choice == "2":
+        search_users()
+    elif choice == "3":
+        disable_user()
+    elif choice == "4":
+        run_audit()
+    elif choice == "5":
+        print("\nBye!")
+        break
+    else:
+        print("Invalid option, choose 1-5")
